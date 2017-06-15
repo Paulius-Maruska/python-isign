@@ -1,17 +1,7 @@
 from isign.model.error import Error
 
 
-def test_error_constructor() -> None:
-    raw = {
-        "status": "error",
-        "error_code": 1337,
-        "message": "Request is wrong",
-    }
-    err = Error(raw)
-    assert err.raw == raw
-
-
-def test_error_correctly_extracts_information_from_error_dict() -> None:
+def test_error_correctly_extracts_information_from_raw_dict() -> None:
     err = Error({
         "status": "error",
         "error_code": 1337,

@@ -5,7 +5,7 @@ from isign.client import ISignClient
 from isign.connection import ISignConnection
 from isign.environment import ISignEnvironment
 from isign.error import ISignError
-from isign.model.base import Base
+from isign.model import Response
 
 
 def test_client_constructor() -> None:
@@ -25,8 +25,9 @@ def test_client_mobile_certificate() -> None:
                 json={"status": "ok", "signing_certificate": {}, "authentication_certificate": {}},
                 status_code=200)
         response = client.mobile_certificate("+37060000007", "51001091072")
-    assert isinstance(response, Base)
+    assert isinstance(response, Response)
     assert response.raw == {"status": "ok", "signing_certificate": {}, "authentication_certificate": {}}
+    assert response.status == "ok"
 
 
 def test_client_mobile_certificate_raises_when_status_not_good() -> None:

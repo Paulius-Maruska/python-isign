@@ -1,14 +1,10 @@
 from typing import Sequence
 
-from .base import Base
 from .error_field import ErrorField
+from .response import Response
 
 
-class Error(Base):
-    @property
-    def status(self) -> str:
-        return str(self.raw["status"])
-
+class Error(Response):
     @property
     def error_code(self) -> int:
         return int(self.raw["error_code"])

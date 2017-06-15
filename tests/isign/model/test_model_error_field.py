@@ -1,17 +1,7 @@
 from isign.model.error import ErrorField
 
 
-def test_field_error_info_constructor() -> None:
-    raw = {
-        "message": "Field is wrong",
-        "error_code": 123,
-        "field": "[test][0][name]",
-    }
-    fei = ErrorField(raw)
-    assert fei.raw == raw
-
-
-def test_field_error_info_correctly_extracts_information_from_error_dict() -> None:
+def test_field_error_info_correctly_extracts_information_from_raw_dict() -> None:
     fei = ErrorField({
         "message": "Field is wrong",
         "error_code": 123,
