@@ -13,15 +13,4 @@ setuptools.setup(
     install_requires=[
         "requests",
     ],
-    extras_require={
-        "develop": [
-            "coverage",
-            "flake8",
-            "mypy",
-            "pytest",
-            "pytest-cov",
-            "pytest-mock",
-            "requests-mock",
-        ],
-    },
 )
