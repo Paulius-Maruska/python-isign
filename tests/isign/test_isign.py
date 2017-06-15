@@ -12,15 +12,15 @@ def test_isign_client_mobile_certificate_standard_flow(sandbox_token: str,
     response = client.mobile_certificate(phone, code)
     assert response.status == "ok"
 
-    assert "signing_certificate" in response.content
-    assert "subject" in response.content["signing_certificate"]
-    assert "serial_number" in response.content["signing_certificate"]["subject"]
-    assert response.content["signing_certificate"]["subject"]["serial_number"] == code
+    assert "signing_certificate" in response.raw
+    assert "subject" in response.raw["signing_certificate"]
+    assert "serial_number" in response.raw["signing_certificate"]["subject"]
+    assert response.raw["signing_certificate"]["subject"]["serial_number"] == code
 
-    assert "authentication_certificate" in response.content
-    assert "subject" in response.content["authentication_certificate"]
-    assert "serial_number" in response.content["authentication_certificate"]["subject"]
-    assert response.content["authentication_certificate"]["subject"]["serial_number"] == code
+    assert "authentication_certificate" in response.raw
+    assert "subject" in response.raw["authentication_certificate"]
+    assert "serial_number" in response.raw["authentication_certificate"]["subject"]
+    assert response.raw["authentication_certificate"]["subject"]["serial_number"] == code
 
 
 def test_isign_client_mobile_certificate_standard_flow_with_bad_users(sandbox_token: str,
@@ -29,6 +29,6 @@ def test_isign_client_mobile_certificate_standard_flow_with_bad_users(sandbox_to
     client = ISignClient(ISignConnection(sandbox_token, "python-isign", "sandbox"))
     try:
         client.mobile_certificate(phone, code)
-    except ISignError as error:
-        assert error.status == "error"
-        assert error.message is not None
+    except ISignError as err:
+        assert err.error.status == "error"
+        assert err.error.message is not None
