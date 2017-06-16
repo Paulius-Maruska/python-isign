@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from .error_field import ErrorField
+from .field_error import FieldError
 from .response import Response
 
 
@@ -14,11 +14,11 @@ class Error(Response):
         return str(self.raw["message"])
 
     @property
-    def errors(self) -> Sequence[ErrorField]:
+    def errors(self) -> Sequence[FieldError]:
         errors = self.raw.get("errors", None)
         if not errors:
             return []
-        return [ErrorField(err) for err in errors]
+        return [FieldError(err) for err in errors]
 
     def __str__(self) -> str:
         result = f"{self.message} ({self.error_code})"
