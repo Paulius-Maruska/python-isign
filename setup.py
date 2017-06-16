@@ -11,6 +11,7 @@ setuptools.setup(
     author="Paulius Maruška",
     author_email="paulius.maruska@gmail.com",
     install_requires=[
+        "python-dateutil",
         "requests",
     ],
 )

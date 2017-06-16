@@ -6,6 +6,6 @@ from .response import Response
 
 __all__ = [
     "Error",
-    "ErrorField",
+    "FieldError",
     "Response",
 ]
