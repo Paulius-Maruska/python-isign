@@ -38,7 +38,7 @@ class ISignConnection:
         hdr = {"User-Agent": self.user_agent}
         response = requests.get(url, headers=hdr)
         if response.status_code >= 400:
-            raise ISignError("GET", url, response.status_code, response.json())
+            raise ISignError("GET", path, response.status_code, response.json())
         result: Dict = response.json()
         return result
 
@@ -47,6 +47,6 @@ class ISignConnection:
         hdr = {"User-Agent": self.user_agent}
         response = requests.post(url, headers=hdr, json=content)
         if response.status_code >= 400:
-            raise ISignError("POST", url, response.status_code, response.json(), content)
+            raise ISignError("POST", path, response.status_code, response.json())
         result: Dict = response.json()
         return result

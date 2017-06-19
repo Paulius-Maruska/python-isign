@@ -11,17 +11,7 @@ setuptools.setup(
     author="Paulius Maruška",
     author_email="paulius.maruska@gmail.com",
     install_requires=[
+        "python-dateutil",
         "requests",
     ],
-    extras_require={
-        "develop": [
-            "coverage",
-            "flake8",
-            "mypy",
-            "pytest",
-            "pytest-cov",
-            "pytest-mock",
-            "requests-mock",
-        ],
-    },
 )
