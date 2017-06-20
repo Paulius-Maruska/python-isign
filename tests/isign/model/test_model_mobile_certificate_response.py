@@ -2,7 +2,7 @@ from isign.model.certificate import Certificate
 from isign.model.mobile_certificate_response import MobileCertificateResponse
 
 
-def test_error_correctly_extracts_information_from_raw_dict() -> None:
+def test_mobile_certificate_response_correctly_extracts_information_from_raw_dict() -> None:
     mcr = MobileCertificateResponse({
         "status": "ok",
         "signing_certificate": {
