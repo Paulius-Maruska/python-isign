@@ -56,3 +56,20 @@ def sandbox_user_good(request: SubRequest) -> Tuple[str, str]:
 def sandbox_user_bad(request: SubRequest) -> Tuple[str, str]:
     phone, code = request.param
     return phone, code
+
+
+@pytest.fixture()
+def restore_config(request: SubRequest) -> None:
+    import isign.functions
+    originals = {
+        "env": isign.functions.ISIGN_ENVIRONMENT,
+        "tkn": isign.functions.ISIGN_ACCESS_TOKEN,
+        "uag": isign.functions.ISIGN_USER_AGENT,
+    }
+
+    def restore() -> None:
+        isign.functions.ISIGN_ENVIRONMENT = originals["env"]  # type: ignore
+        isign.functions.ISIGN_ACCESS_TOKEN = originals["tkn"]  # type: ignore
+        isign.functions.ISIGN_USER_AGENT = originals["uag"]  # type: ignore
+
+    request.addfinalizer(restore)

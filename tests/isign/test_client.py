@@ -21,11 +21,11 @@ def test_client_constructor() -> None:
 
 def test_client_mobile_certificate() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_certificate", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.post("https://foo.isign.io/mobile/certificate.json?access_token=acctkn",
-                request_headers={"User-Agent": "constructor_test"},
+                request_headers={"User-Agent": "test_client_mobile_certificate"},
                 json={"status": "ok", "signing_certificate": {}, "authentication_certificate": {}},
                 status_code=200)
         response = client.mobile_certificate("+37060000007", "51001091072")
@@ -36,11 +36,11 @@ def test_client_mobile_certificate() -> None:
 
 def test_client_mobile_certificate_raises_when_status_not_good() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_certificate_raises_when_status_not_good", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.post("https://foo.isign.io/mobile/certificate.json?access_token=acctkn",
-                request_headers={"User-Agent": "constructor_test"},
+                request_headers={"User-Agent": "test_client_mobile_certificate_raises_when_status_not_good"},
                 json={"status": "error"},
                 status_code=400)
         pytest.raises(ISignError, client.mobile_certificate, "+37060000007", "51001091072")
@@ -48,11 +48,11 @@ def test_client_mobile_certificate_raises_when_status_not_good() -> None:
 
 def test_client_mobile_login() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_login", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.post("https://foo.isign.io/mobile/login.json?access_token=acctkn",
-                request_headers={"User-Agent": "constructor_test"},
+                request_headers={"User-Agent": "test_client_mobile_login"},
                 json={"status": "ok", "certificate": {}, "token": "0123456789", "control_code": "1337"},
                 status_code=200)
         response = client.mobile_login("+37060000007", "51001091072", language="EN", message="Login!")
@@ -63,11 +63,11 @@ def test_client_mobile_login() -> None:
 
 def test_client_mobile_login_raises_when_status_not_good() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_login_raises_when_status_not_good", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.post("https://foo.isign.io/mobile/login.json?access_token=acctkn",
-                request_headers={"User-Agent": "constructor_test"},
+                request_headers={"User-Agent": "test_client_mobile_login_raises_when_status_not_good"},
                 json={"status": "error"},
                 status_code=400)
         pytest.raises(ISignError, client.mobile_login, "+37060000007", "51001091072")
@@ -75,11 +75,11 @@ def test_client_mobile_login_raises_when_status_not_good() -> None:
 
 def test_client_mobile_login_status() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_login_status", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.get("https://foo.isign.io/mobile/login/status/1234567890.json?access_token=acctkn",
-               request_headers={"User-Agent": "constructor_test"},
+               request_headers={"User-Agent": "test_client_mobile_login_status"},
                json={"status": "waiting"},
                status_code=200)
         response = client.mobile_login_status("1234567890")
@@ -90,11 +90,11 @@ def test_client_mobile_login_status() -> None:
 
 def test_client_mobile_login_status_raises_when_status_not_good() -> None:
     env = ISignEnvironment("foo", "foo.isign.io")
-    conn = ISignConnection("acctkn", "constructor_test", env)
+    conn = ISignConnection("acctkn", "test_client_mobile_login_status_raises_when_status_not_good", env)
     client = ISignClient(conn)
     with requests_mock.mock() as rm:
         rm.get("https://foo.isign.io/mobile/login/status/1234567890.json?access_token=acctkn",
-               request_headers={"User-Agent": "constructor_test"},
+               request_headers={"User-Agent": "test_client_mobile_login_status_raises_when_status_not_good"},
                json={"status": "error"},
                status_code=400)
         pytest.raises(ISignError, client.mobile_login_status, "1234567890")
