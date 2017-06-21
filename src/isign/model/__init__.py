@@ -6,11 +6,11 @@ from .mobile_login_response import MobileLoginResponse, MobileLoginStatusRespons
 from .response import Response
 
 
-__all__ = [
+__all__ = (
     "Error",
     "FieldError",
     "MobileCertificateResponse",
     "MobileLoginResponse",
     "MobileLoginStatusResponse",
     "Response",
-]
+)
