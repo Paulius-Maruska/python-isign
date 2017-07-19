@@ -1,10 +1,7 @@
-from typing import Dict
+from .base import Base
 
 
-class Response:
-    def __init__(self, raw: Dict) -> None:
-        self.raw = raw
-
+class Response(Base):
     @property
     def status(self) -> str:
         return str(self.raw["status"])

@@ -1,10 +1,7 @@
-from typing import Dict
+from .base import Base
 
 
-class FieldError:
-    def __init__(self, raw: Dict) -> None:
-        self.raw = raw
-
+class FieldError(Base):
     @property
     def error_code(self) -> int:
         return int(self.raw["error_code"])
