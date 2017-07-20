@@ -1,8 +1,8 @@
-from .base import Base
+from .base import BaseDict
 from .parsed import Base64Str, DateTimeStr
 
 
-class CertificateSubject(Base):
+class CertificateSubject(BaseDict):
     @property
     def country(self) -> str:
         return str(self.raw["country"])
@@ -32,7 +32,7 @@ class CertificateSubject(Base):
         return str(self.raw["serial_number"])
 
 
-class CertificateIssuer(Base):
+class CertificateIssuer(BaseDict):
     @property
     def country(self) -> str:
         return str(self.raw["country"])
@@ -50,7 +50,7 @@ class CertificateIssuer(Base):
         return str(self.raw["email"])
 
 
-class Certificate(Base):
+class Certificate(BaseDict):
     @property
     def name(self) -> str:
         return str(self.raw["name"])

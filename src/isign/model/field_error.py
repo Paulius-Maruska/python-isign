@@ -1,7 +1,7 @@
-from .base import Base
+from .base import BaseDict
 
 
-class FieldError(Base):
+class FieldError(BaseDict):
     @property
     def error_code(self) -> int:
         return int(self.raw["error_code"])
