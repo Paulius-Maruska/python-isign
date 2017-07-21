@@ -6,6 +6,7 @@ from .file import File, file, Files, files
 from .mobile_certificate_response import MobileCertificateResponse
 from .mobile_login_response import MobileLoginResponse, MobileLoginStatusResponse
 from .mobile_sign_response import MobileSignResponse, MobileSignStatusResponse
+from .pdf import PDF, pdf
 from .response import Response
 
 
@@ -23,5 +24,7 @@ __all__ = (
     "MobileLoginStatusResponse",
     "MobileSignResponse",
     "MobileSignStatusResponse",
+    "PDF",
+    "pdf",
     "Response",
 )
