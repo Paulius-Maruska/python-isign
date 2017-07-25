@@ -1,11 +1,12 @@
-from typing import (
-    Optional,
-    Tuple,
-)
+import base64
+import hashlib
+import os
+from typing import Optional, Tuple
 
 import pytest
 from _pytest.fixtures import SubRequest
 
+import isign
 from isign.environment import ISignEnvironment
 
 
@@ -73,3 +74,19 @@ def restore_config(request: SubRequest) -> None:
         isign.functions.ISIGN_USER_AGENT = originals["uag"]  # type: ignore
 
     request.addfinalizer(restore)
+
+
+@pytest.fixture()
+def files() -> isign.Files:
+    name = "test.pdf"
+    path = os.path.abspath(os.path.join(os.path.dirname(__file__), name))
+    with open(path, "rb") as f:
+        bin_content = f.read()
+
+    sha1 = hashlib.sha1()
+    sha1.update(bin_content)
+    digest = sha1.hexdigest()
+
+    content = base64.b64encode(bin_content).decode()
+
+    return isign.files((name, digest, content))
