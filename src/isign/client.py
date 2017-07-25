@@ -5,6 +5,9 @@ from .model import (
     MobileCertificateResponse,
     MobileLoginResponse,
     MobileLoginStatusResponse,
+    MobileSignResponse,
+    MobileSignStatusResponse,
+    PDF,
 )
 
 
@@ -37,3 +40,32 @@ class ISignClient:
         path = f"/mobile/login/status/{token}.json"
         data = self.connection.get(path)
         return MobileLoginStatusResponse(data)
+
+    def mobile_sign(self, phone: str, code: str,
+                    language: str, message: str,
+                    type: str = "pdf",
+                    timestamp: bool = True,
+                    pdf: Optional[PDF] = None) -> MobileSignResponse:
+        path = "/mobile/sign.json"
+        payload = {
+            "phone": phone,
+            "code": code,
+            "language": language,
+            "message": message,
+            "type": type,
+            "timestamp": timestamp,
+        }
+        if type == "pdf":
+            if pdf is None:
+                raise ValueError("pdf argument must not be None, when type argument is 'pdf'")
+            payload["pdf"] = pdf.raw
+        else:
+            raise ValueError("not supported type")
+
+        data = self.connection.post(path, payload)
+        return MobileSignResponse(data)
+
+    def mobile_sign_status(self, token: str) -> MobileSignStatusResponse:
+        path = f"/mobile/sign/status/{token}.json"
+        data = self.connection.get(path)
+        return MobileSignStatusResponse(data)

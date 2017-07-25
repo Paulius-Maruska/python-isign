@@ -3,10 +3,15 @@ import requests_mock
 
 import isign.functions
 from isign import (
+    file,
+    files,
     ISignEnvironment,
     MobileCertificateResponse,
     MobileLoginResponse,
     MobileLoginStatusResponse,
+    MobileSignResponse,
+    MobileSignStatusResponse,
+    pdf,
 )
 
 
@@ -85,5 +90,36 @@ def test_mobile_login_status() -> None:
                status_code=200)
         response = isign.functions.mobile_login_status("1234567890")
     assert isinstance(response, MobileLoginStatusResponse)
+    assert response.raw == {"status": "waiting"}
+    assert response.status == "waiting"
+
+
+def test_mobile_sign() -> None:
+    env = ISignEnvironment("foo", "foo.isign.io")
+    isign.functions.use_config("acctkn", "test_mobile_sign", env)
+    with requests_mock.mock() as rm:
+        rm.post("https://foo.isign.io/mobile/sign.json?access_token=acctkn",
+                request_headers={"User-Agent": "test_mobile_sign"},
+                json={"status": "ok", "token": "0123456789", "control_code": "1337"},
+                status_code=200)
+        p = pdf(contact="Foo Bar",
+                location="Vilnius",
+                files=files(file("foo.pdf", "foo-digest", "foo-content")))
+        response = isign.mobile_sign("+37060000007", "51001091072", "EN", "Login!", pdf=p)
+    assert isinstance(response, MobileSignResponse)
+    assert response.raw == {"status": "ok", "token": "0123456789", "control_code": "1337"}
+    assert response.status == "ok"
+
+
+def test_mobile_sign_status() -> None:
+    env = ISignEnvironment("foo", "foo.isign.io")
+    isign.functions.use_config("acctkn", "test_mobile_sign_status", env)
+    with requests_mock.mock() as rm:
+        rm.get("https://foo.isign.io/mobile/sign/status/1234567890.json?access_token=acctkn",
+               request_headers={"User-Agent": "test_mobile_sign_status"},
+               json={"status": "waiting"},
+               status_code=200)
+        response = isign.mobile_sign_status("1234567890")
+    assert isinstance(response, MobileSignStatusResponse)
     assert response.raw == {"status": "waiting"}
     assert response.status == "waiting"

@@ -1,66 +1,56 @@
-from typing import Any, Dict
-
+from .base import BaseDict
 from .parsed import Base64Str, DateTimeStr
 
 
-class CertificateSubject:
-    def __init__(self, raw: Dict[str, str]) -> None:
-        self.raw = raw
-
+class CertificateSubject(BaseDict):
     @property
     def country(self) -> str:
-        return self.raw["country"]
+        return str(self.raw["country"])
 
     @property
     def organisation(self) -> str:
-        return self.raw["organisation"]
+        return str(self.raw["organisation"])
 
     @property
     def organisation_unit(self) -> str:
-        return self.raw["organisation_unit"]
+        return str(self.raw["organisation_unit"])
 
     @property
     def common_name(self) -> str:
-        return self.raw["common_name"]
+        return str(self.raw["common_name"])
 
     @property
     def name(self) -> str:
-        return self.raw["name"]
+        return str(self.raw["name"])
 
     @property
     def surname(self) -> str:
-        return self.raw["surname"]
+        return str(self.raw["surname"])
 
     @property
     def serial_number(self) -> str:
-        return self.raw["serial_number"]
+        return str(self.raw["serial_number"])
 
 
-class CertificateIssuer:
-    def __init__(self, raw: Dict[str, str]) -> None:
-        self.raw = raw
-
+class CertificateIssuer(BaseDict):
     @property
     def country(self) -> str:
-        return self.raw["country"]
+        return str(self.raw["country"])
 
     @property
     def organisation(self) -> str:
-        return self.raw["organisation"]
+        return str(self.raw["organisation"])
 
     @property
     def common_name(self) -> str:
-        return self.raw["common_name"]
+        return str(self.raw["common_name"])
 
     @property
     def email(self) -> str:
-        return self.raw["email"]
+        return str(self.raw["email"])
 
 
-class Certificate:
-    def __init__(self, raw: Dict[str, Any]) -> None:
-        self.raw = raw
-
+class Certificate(BaseDict):
     @property
     def name(self) -> str:
         return str(self.raw["name"])
