@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="python-isign",
-    version="0.2.0",
+    version="0.3.0",
     description="Python client for isign.io API.",
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
