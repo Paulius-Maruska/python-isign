@@ -7,6 +7,9 @@ from .model import (
     MobileCertificateResponse,
     MobileLoginResponse,
     MobileLoginStatusResponse,
+    MobileSignResponse,
+    MobileSignStatusResponse,
+    PDF,
 )
 
 ISIGN_ENVIRONMENT: Union[str, ISignEnvironment] = "sandbox"
@@ -57,3 +60,19 @@ def mobile_login(phone: str,
 def mobile_login_status(token: str) -> MobileLoginStatusResponse:
     client = global_client()
     return client.mobile_login_status(token)
+
+
+def mobile_sign(phone: str,
+                code: str,
+                language: str,
+                message: str,
+                type: str = "pdf",
+                timestamp: bool = True,
+                pdf: Optional[PDF] = None) -> MobileSignResponse:
+    client = global_client()
+    return client.mobile_sign(phone, code, language, message, type, timestamp, pdf)
+
+
+def mobile_sign_status(token: str) -> MobileSignStatusResponse:
+    client = global_client()
+    return client.mobile_sign_status(token)
